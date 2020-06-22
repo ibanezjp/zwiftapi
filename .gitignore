@@ -1,0 +1,6 @@
+/Zwift/obj
+/Zwift/bin
+/Zwift.UnitTests/obj
+/Zwift.UnitTests/bin
+/.vs/ZwiftAPI/DesignTimeBuild/.dtbcache.v2
+/.vs/ZwiftAPI/config/applicationhost.config
