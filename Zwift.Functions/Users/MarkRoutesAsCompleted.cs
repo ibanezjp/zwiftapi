@@ -14,13 +14,13 @@ namespace Zwift.Functions.Users
             [CosmosDB(
                 Constants.DATABASE_NAME,
                 Constants.USERS_COLLECTION,
-                ConnectionStringSetting = Constants.CONNECTION_STRING_SETTING,
+                ConnectionStringSetting = Constants.DATABASE_CONNECTION_STRING_SETTING,
                 CreateIfNotExists = true,
                 Id = "{UserId}")] User existingUser,
             [CosmosDB(
                 Constants.DATABASE_NAME,
                 Constants.USERS_COLLECTION,
-                ConnectionStringSetting = Constants.CONNECTION_STRING_SETTING,
+                ConnectionStringSetting = Constants.DATABASE_CONNECTION_STRING_SETTING,
                 CreateIfNotExists = true,
                 Id = "{UserId}")] out User user,
             ILogger log)

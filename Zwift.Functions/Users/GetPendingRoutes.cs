@@ -20,7 +20,7 @@ namespace Zwift.Functions.Users
             [CosmosDB(
                 Constants.DATABASE_NAME,
                 Constants.USERS_COLLECTION,
-                ConnectionStringSetting = Constants.CONNECTION_STRING_SETTING)] DocumentClient client,
+                ConnectionStringSetting = Constants.DATABASE_CONNECTION_STRING_SETTING)] DocumentClient client,
             ILogger log)
         {
             var ids = req.Query["ids"];

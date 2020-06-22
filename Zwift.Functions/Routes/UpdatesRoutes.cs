@@ -13,12 +13,12 @@ namespace Zwift.Functions.Routes
             [CosmosDB(
                 Constants.DATABASE_NAME,
                 Constants.ROUTES_COLLECTION,
-                ConnectionStringSetting = Constants.CONNECTION_STRING_SETTING,
+                ConnectionStringSetting = Constants.DATABASE_CONNECTION_STRING_SETTING,
                 CreateIfNotExists = true)] IAsyncCollector<Route> routes,
             [CosmosDB(
                 Constants.DATABASE_NAME,
                 Constants.ROUTES_COLLECTION,
-                ConnectionStringSetting = Constants.CONNECTION_STRING_SETTING,
+                ConnectionStringSetting = Constants.DATABASE_CONNECTION_STRING_SETTING,
                 CreateIfNotExists = true)] IEnumerable<Route> existingRoutes,
             ILogger log)
         {
