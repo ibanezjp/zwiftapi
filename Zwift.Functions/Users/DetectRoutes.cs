@@ -24,18 +24,6 @@ namespace Zwift.Functions.Users
         {
             log.LogInformation($"C# Blob trigger function Processed blob\n Name:{name} \n Size: {image.Length} Bytes");
 
-            //var content = new StreamContent(image);
-            //content.Headers.Add("Prediction-Key", "24d9d88ffd39465c90e25a3af135ca40");
-            //content.Headers.Add("Content-Type", "application/octet-stream");
-
-            //HttpClient httpClient = new HttpClient();
-            //var response = await httpClient.PostAsync(
-            //    new Uri(
-            //        "https://zwiftcustomvision.cognitiveservices.azure.com/customvision/v3.0/Prediction/46ff2c6b-1eef-4133-acf9-a9e12b8d8ea2/detect/iterations/Completed%20Route/image"),
-            //    content);
-
-            //var data = await response.Content.ReadAsStringAsync();
-
             var sourceStream = new MemoryStream();
             await image.CopyToAsync(sourceStream);
 
