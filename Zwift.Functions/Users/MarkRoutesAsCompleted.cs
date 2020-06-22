@@ -16,13 +16,15 @@ namespace Zwift.Functions.Users
                 Constants.USERS_COLLECTION,
                 ConnectionStringSetting = Constants.DATABASE_CONNECTION_STRING_SETTING,
                 CreateIfNotExists = true,
-                Id = "{UserId}")] User existingUser,
+                Id = "{UserId}", 
+                PartitionKey = "{UserId}")] User existingUser,
             [CosmosDB(
                 Constants.DATABASE_NAME,
                 Constants.USERS_COLLECTION,
                 ConnectionStringSetting = Constants.DATABASE_CONNECTION_STRING_SETTING,
                 CreateIfNotExists = true,
-                Id = "{UserId}")] out User user,
+                Id = "{UserId}",
+                PartitionKey = "{UserId}")] out User user,
             ILogger log)
         {
             foreach (var route in multipleRoutesCompletedModel.Routes)
