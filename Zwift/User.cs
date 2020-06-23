@@ -8,7 +8,7 @@ namespace Zwift
         [JsonProperty(PropertyName = "id")]
         public string Id { get; set; }
         public string Name { get; set; }
-        public List<Route> CompletedRoutes { get; set; }
-        public List<Route> PendingRoutes { get; set; }
+        public RoutesList CompletedRoutes { get; set; }
+        public RoutesList PendingRoutes { get; set; }
     }
 }

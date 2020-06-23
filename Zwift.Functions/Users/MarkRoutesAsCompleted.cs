@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
@@ -29,13 +28,13 @@ namespace Zwift.Functions.Users
         {
             foreach (var route in multipleRoutesCompletedModel.Routes)
             {
-                var existingRoute = existingUser.PendingRoutes.SingleOrDefault(x => x.Name.Equals(route, StringComparison.InvariantCultureIgnoreCase));
+                var existingRoute = existingUser.PendingRoutes.FindRoute(route);
 
                 if (existingRoute != null)
                 {
                     existingRoute.Completed = DateTime.Now;
                     existingUser.PendingRoutes.Remove(existingRoute);
-                    existingUser.CompletedRoutes ??= new List<Route>();
+                    existingUser.CompletedRoutes ??= new RoutesList();
                     existingUser.CompletedRoutes.Add(existingRoute);
                 }
                 else

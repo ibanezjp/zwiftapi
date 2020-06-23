@@ -37,7 +37,7 @@ namespace Zwift.UnitTests
 
             var user1 = new User
             {
-                PendingRoutes = new List<Route>
+                PendingRoutes = new RoutesList()
                 {
                     route1,
                     route2
@@ -46,7 +46,7 @@ namespace Zwift.UnitTests
 
             var user2 = new User
             {
-                PendingRoutes = new List<Route>
+                PendingRoutes = new RoutesList()
                 {
                     route1,
                     route2,
@@ -56,7 +56,7 @@ namespace Zwift.UnitTests
 
             var user3 = new User
             {
-                PendingRoutes = new List<Route>
+                PendingRoutes = new RoutesList()
                 {
                     route2,
                     route3,

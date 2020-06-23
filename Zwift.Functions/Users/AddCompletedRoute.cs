@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
@@ -43,7 +42,7 @@ namespace Zwift.Functions.Users
 
             existingRoute.Completed = DateTime.Now;
             existingUser.PendingRoutes.Remove(existingRoute);
-            existingUser.CompletedRoutes ??= new List<Route>();
+            existingUser.CompletedRoutes ??= new RoutesList();;
             existingUser.CompletedRoutes.Add(existingRoute);
 
             user = existingUser;

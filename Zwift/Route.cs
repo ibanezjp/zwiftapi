@@ -1,5 +1,8 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using F23.StringSimilarity;
 
 namespace Zwift
 {
@@ -25,5 +28,33 @@ namespace Zwift
         None = 0,
         Running = 1,
         Cycling = 2
+    }
+
+    public class RoutesList : List<Route>
+    {
+        public Route FindRoute(string name)
+        {
+            var route = this.SingleOrDefault(x => x.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
+            
+            if (route != null)
+                return route;
+
+            var longestCommonSubsequence = new LongestCommonSubsequence();
+
+            var distance = double.MaxValue;
+            Route currentRoute = null;
+
+            foreach (var tmp in this)
+            {
+                var currentDistance = longestCommonSubsequence.Distance(tmp.Name, name);
+                if (currentDistance < distance)
+                {
+                    distance = currentDistance;
+                    currentRoute = tmp;
+                }
+            }
+
+            return currentRoute;
+        }
     }
 }

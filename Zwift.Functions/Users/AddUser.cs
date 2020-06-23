@@ -33,7 +33,8 @@ namespace Zwift.Functions.Users
             if (existingUser != null) 
                 return new BadRequestErrorMessageResult("Id already exists!");
 
-            newUser.PendingRoutes = existingRoutes.ToList();
+            newUser.PendingRoutes = new RoutesList();
+            newUser.PendingRoutes.AddRange(existingRoutes);
 
             await usersCollection.AddAsync(newUser);
             await usersCollection.FlushAsync(); 
