@@ -18,6 +18,9 @@ namespace Zwift.Functions.Users
         {
             byte[] content = new byte[httpRequest.Body.Length];
             await httpRequest.Body.ReadAsync(content, 0, (int)httpRequest.Body.Length);
+
+            await image.WriteAsync(content);
+
             return new OkResult();
         }
     }
