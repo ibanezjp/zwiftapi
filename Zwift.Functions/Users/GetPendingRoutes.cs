@@ -37,7 +37,9 @@ namespace Zwift.Functions.Users
 
             var collectionUri = UriFactory.CreateDocumentCollectionUri(Constants.DATABASE_NAME, Constants.USERS_COLLECTION);
 
-            var query = client.CreateDocumentQuery<User>(collectionUri)
+            //https://stackoverflow.com/questions/46170004/net-c-sharp-cross-partition-query-is-required-but-disabled-trouble-on-docum
+            var feedOptions = new FeedOptions { EnableCrossPartitionQuery = true };
+            var query = client.CreateDocumentQuery<User>(collectionUri, feedOptions)
                 .Where(x => userIds.Contains(x.Id))
                 .AsDocumentQuery();
 

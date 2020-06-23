@@ -20,7 +20,7 @@ namespace Zwift.Functions.Users
         public static async System.Threading.Tasks.Task Run(
             [BlobTrigger("pending/{name}")]Stream image,
             [Queue(Constants.QUEUE_NAME)] IAsyncCollector<string> applicationQueue,
-            string name, ILogger log)
+            string name, ILogger log, ExecutionContext executionContext)
         {
             log.LogInformation($"C# Blob trigger function Processed blob\n Name:{name} \n Size: {image.Length} Bytes");
 
@@ -58,11 +58,16 @@ namespace Zwift.Functions.Users
                         predictionModel.BoundingBox.Height);
 
                     var memoryStream = new MemoryStream();
+                    //ONLY FOR DEBUG
                     //cropped.Save(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop),Guid.NewGuid().ToString()));
                     cropped.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Jpeg);
                     memoryStream.Position = 0;
 
-                    // Load an image from a local file.
+                    //https://stackoverflow.com/questions/53367132/where-to-store-files-for-azure-function
+                    var path = Path.Combine(executionContext.FunctionAppDirectory, "Zwift-5c2367dfe003.json");
+
+                    Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS",path);
+
                     Image tmpImage = await Image.FromStreamAsync(memoryStream);
                     var client = await ImageAnnotatorClient.CreateAsync();
                     var tmp = await client.DetectTextAsync(tmpImage);
@@ -71,25 +76,6 @@ namespace Zwift.Functions.Users
 
                     if (annotation?.Description != null) 
                         routes.Add(annotation.Description.Replace("\n", " ").Trim());
-
-                    //foreach (var annotation in tmp)
-                    //{
-                    //    if (annotation.Description != null)
-                    //    {
-                    //        Console.WriteLine(annotation.Description);
-                    //        await applicationQueue.AddAsync(annotation.Description);
-                    //    }
-
-                    //}
-
-                    //var readTextResponse =
-                    //    await computerVisionClient.RecognizePrintedTextInStreamAsync(true, memoryStream);
-
-                    //foreach (var ocrResult in readTextResponse.Regions)
-                    //{
-                    //    var text = string.Join(" ", ocrResult.Lines.SelectMany(x => x.Words).Select(x => x.Text));
-                    //    log.LogInformation(text);
-                    //}
                 }
             }
 
