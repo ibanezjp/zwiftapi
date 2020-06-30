@@ -36,7 +36,7 @@ namespace Zwift.Functions.Users
 
             sourceStream.Position = 0;
 
-            var response = await customVisionPredictionClient.DetectImageAsync(Guid.Parse("46ff2c6b-1eef-4133-acf9-a9e12b8d8ea2"), "Completed Route",
+            var response = await customVisionPredictionClient.DetectImageAsync(Guid.Parse(Environment.GetEnvironmentVariable("CustomVisionPredictionClient_ProjectId")), "Completed Route",
                 sourceStream);
 
             var routes = new List<string>();
