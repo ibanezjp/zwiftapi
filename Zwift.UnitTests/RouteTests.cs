@@ -1,24 +1,17 @@
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SharpTestsEx;
 
 namespace Zwift.UnitTests
 {
     [TestClass]
-    public class UnitTest1
+    public class RouteTests
     {
         [TestMethod]
-        public async Task TestMethod1()
-        {
-            var routesScrapper = new RoutesScrapper();
-            await routesScrapper.GetDataAsync();
-        }
-
-        [TestMethod]
-        public async Task TestMethod2()
+        public async Task Route_FindRoute_OK()
         {
             var routes = new RoutesList();
-            routes.AddRange(new [] {
+            routes.AddRange(new[] {
                 new Route
                 {
                     Name = "Classique"

@@ -20,13 +20,12 @@ namespace Zwift.Functions.Users
         public static async System.Threading.Tasks.Task Run(
             [BlobTrigger("pending/{name}")]Stream image,
             [Queue(Constants.QUEUE_NAME)] IAsyncCollector<string> applicationQueue,
-            string name, ILogger log, ExecutionContext executionContext)
+            string name, 
+            ILogger log, 
+            ExecutionContext executionContext)
         {
-            log.LogInformation($"C# Blob trigger function Processed blob\n Name:{name} \n Size: {image.Length} Bytes");
-
             var sourceStream = new MemoryStream();
             await image.CopyToAsync(sourceStream);
-
 
             var bitmap = new Bitmap(sourceStream);
 
