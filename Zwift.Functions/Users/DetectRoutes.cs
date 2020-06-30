@@ -4,7 +4,6 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using Google.Cloud.Vision.V1;
-using Microsoft.Azure.CognitiveServices.Vision.ComputerVision;
 using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
@@ -31,18 +30,14 @@ namespace Zwift.Functions.Users
 
             var customVisionPredictionClient = new CustomVisionPredictionClient
             {
-                ApiKey = "24d9d88ffd39465c90e25a3af135ca40",
-                Endpoint = "https://zwiftcustomvision.cognitiveservices.azure.com/"
+                ApiKey = Environment.GetEnvironmentVariable("CustomVisionPredictionClient_ApiKey"),
+                Endpoint = Environment.GetEnvironmentVariable("CustomVisionPredictionClient_Endpoint")
             };
 
             sourceStream.Position = 0;
 
             var response = await customVisionPredictionClient.DetectImageAsync(Guid.Parse("46ff2c6b-1eef-4133-acf9-a9e12b8d8ea2"), "Completed Route",
                 sourceStream);
-
-            var computerVisionClient =
-                new ComputerVisionClient(new ApiKeyServiceClientCredentials("4865218f4e144b70a87e6476157a3e33"))
-                { Endpoint = "https://zwiftcomputervision.cognitiveservices.azure.com/" };
 
             var routes = new List<string>();
 
