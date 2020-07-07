@@ -87,7 +87,7 @@ namespace Zwift.Functions.Users
 
         public static System.Drawing.Image CropBitmap(Bitmap bitmap, double cropX, double cropY, double cropWidth, double cropHeight)
         {
-            System.Drawing.Rectangle rect = new System.Drawing.Rectangle((int)(cropX * bitmap.Width), (int)(cropY * bitmap.Height), (int)(cropWidth * bitmap.Width), (int)(cropHeight * bitmap.Height));
+            Rectangle rect = new Rectangle((int)(cropX * bitmap.Width), (int)(cropY * bitmap.Height), (int)(cropWidth * bitmap.Width), (int)(cropHeight * bitmap.Height));
 
             return CropImage(bitmap, rect);
         }
