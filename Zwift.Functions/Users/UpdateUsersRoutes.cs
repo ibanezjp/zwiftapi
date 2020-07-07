@@ -39,6 +39,8 @@ namespace Zwift.Functions.Users
                 bool shouldUpdate = false;
                 foreach (var route in existingRoutes)
                 {
+                    if (user.PendingRoutes == null) user.PendingRoutes = new RoutesList();
+                    if (user.CompletedRoutes == null) user.CompletedRoutes = new RoutesList();
                     var routeInPendingRoutes = user.PendingRoutes.SingleOrDefault(x => x.Id == route.Id);
                     if (routeInPendingRoutes == null)
                     {
