@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Azure.Documents.Client;
 using Microsoft.Azure.WebJobs;
 
 namespace Zwift.Functions.Routes
@@ -33,6 +34,13 @@ namespace Zwift.Functions.Routes
             await routes.FlushAsync();
 
             return sourceRoutes;
+        }
+
+        public static async Task<List<Route>> GetRoutesToUpsertAsync(IEnumerable<Route> existingRoutes)
+        {
+            var sourceRoutes = await new RoutesScrapper().GetDataAsync();
+
+            return RoutesManager.GetRoutesToUpdate(existingRoutes.ToList(), sourceRoutes);
         }
     }
 }

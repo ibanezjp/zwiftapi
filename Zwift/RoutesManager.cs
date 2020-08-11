@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using deepequalitycomparer;
 
 namespace Zwift
 {
@@ -20,6 +21,15 @@ namespace Zwift
                 );
 
             return users.First().PendingRoutes.Where(x => intersection.Contains(x.Id)).ToList();
+        }
+
+        public static List<Route> GetRoutesToUpdate(List<Route> existingRoutes, List<Route> routes)
+        {
+            var comparer = DeepEqualityComparer.CraeteDefaultWithLogOnlyNotEqualToConsole<Route>(); 
+
+            return existingRoutes.Except(routes, comparer)
+                .Union(routes.Except(existingRoutes, comparer))
+                .ToList();
         }
     }
 }
